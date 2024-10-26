@@ -1,5 +1,5 @@
 FROM debian:12
-MAINTAINER acvelez <acvelez@vidalinux.com>
+LABEL maintainer="juacvillefer <example@example.com>"
 
 RUN \
   apt-get update && \

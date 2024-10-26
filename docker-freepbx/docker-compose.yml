@@ -18,7 +18,7 @@ services:
       - DB_PASS=asteriskpass
       - DBENGINE=mysql
       - DBNAME=asterisk 
-      - DBHOST=172.18.0.2 
+      - DBHOST=172.19.0.2 
       - DBPORT=3306 
       - CDRDBNAME=asteriskcdrdb 
       - DBUSER=asterisk 
@@ -46,7 +46,7 @@ services:
     restart: always
     networks:
       asterisk:
-        ipv4_address: 172.18.0.3
+        ipv4_address: 172.19.0.3
 
   mariadb:
     container_name: freepbx_mariadb
@@ -60,7 +60,7 @@ services:
       - MYSQL_ROOT_PASSWORD=asterisk
     networks:
       asterisk:
-        ipv4_address: 172.18.0.2
+        ipv4_address: 172.19.0.2
 
 volumes:
   varvol:
@@ -70,12 +70,12 @@ volumes:
   logvol:
 
 networks:
- asterisk:
+  asterisk:
     driver: bridge
     driver_opts:
       com.docker.network.enable_ipv6: "false"
     ipam:
       driver: default
       config:
-      - subnet: 172.18.0.0/24
-        gateway: 172.18.0.1
+      - subnet: 172.19.0.0/24
+        gateway: 172.19.0.1

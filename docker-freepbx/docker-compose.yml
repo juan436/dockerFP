@@ -47,7 +47,7 @@ services:
     networks:
       asterisk:
         ipv4_address: 172.19.0.3
-      my_macvlan:
+      macvlan0:
         ipv4_address: 172.22.0.50 
 
   mariadb:
@@ -81,5 +81,5 @@ networks:
       config:
       - subnet: 172.19.0.0/24
         gateway: 172.19.0.1
-  my_macvlan:
+  macvlan0:
     external: true

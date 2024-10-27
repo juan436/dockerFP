@@ -47,6 +47,8 @@ services:
     networks:
       asterisk:
         ipv4_address: 172.19.0.3
+      my_macvlan:
+        ipv4_address: 172.22.0.50 
 
   mariadb:
     container_name: freepbx_mariadb
@@ -79,3 +81,5 @@ networks:
       config:
       - subnet: 172.19.0.0/24
         gateway: 172.19.0.1
+  my_macvlan:
+    external: true

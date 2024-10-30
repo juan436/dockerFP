@@ -7,9 +7,11 @@ RUN \
   apt -y install build-essential git curl wget libnewt-dev libssl-dev \
   libncurses5-dev subversion libsqlite3-dev libjansson-dev libxml2-dev uuid-dev \
   default-libmysqlclient-dev htop sngrep lame ffmpeg mpg123 
+
 RUN \
   apt -y install git vim curl wget libnewt-dev libssl-dev libncurses5-dev \
   subversion libsqlite3-dev build-essential libjansson-dev libxml2-dev uuid-dev expect
+
 # install php
 RUN \
   apt -y install build-essential openssh-server apache2 cron \
@@ -19,6 +21,7 @@ RUN \
   unixodbc-dev uuid uuid-dev libasound2-dev libogg-dev libvorbis-dev libicu-dev libcurl4-openssl-dev \
   odbc-mariadb libical-dev libneon27-dev libsrtp2-dev libspandsp-dev sudo subversion libtool-bin \
   python-dev-is-python3 unixodbc vim wget libjansson-dev software-properties-common nodejs npm ipset iptables fail2ban php-soap
+
 # install asterisk
 RUN \
   wget -O /usr/src/asterisk-20-current.tar.gz http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-20-current.tar.gz && \
@@ -35,6 +38,7 @@ RUN \
   make samples && \
   make config && \
   ldconfig
+
 # create user asterisk and permissions
 RUN \
   groupadd asterisk && \
@@ -51,6 +55,7 @@ RUN \
   sed -i 's|;rungroup|rungroup|' /etc/asterisk/asterisk.conf && \
   echo "/usr/lib64" >> /etc/ld.so.conf.d/x86_64-linux-gnu.conf && \
   ldconfig
+
 # configure apache server
 RUN \
   sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php/8.2/apache2/php.ini && \
@@ -59,21 +64,33 @@ RUN \
   sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf && \
   a2enmod rewrite && \
   rm /var/www/html/index.html
+
 # configure odbc
 COPY odbc.ini /etc/odbc.ini
 COPY odbcinst.ini /etc/odbcinst.ini
+
 # configure ssl
 COPY ./default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
 RUN \
     a2ensite default-ssl && \
     a2enmod ssl
+
 # install freepbx
 RUN \
   wget -O /usr/local/src/freepbx-17.0-latest-EDGE.tgz http://mirror.freepbx.org/modules/packages/freepbx/freepbx-17.0-latest-EDGE.tgz && \
   tar zxvf /usr/local/src/freepbx-17.0-latest-EDGE.tgz -C /usr/local/src && \
+  cd /usr/local/src/freepbx && \
+  sudo -u asterisk ./install -n && \
   rm /usr/src/asterisk-20-current.tar.gz && \
   rm /usr/local/src/freepbx-17.0-latest-EDGE.tgz && \
   apt-get clean
+
+# Set permissions
+RUN \
+  chown -R asterisk:asterisk /var/www/html && \
+  chown -R asterisk:asterisk /var/lib/asterisk && \
+  chown -R asterisk:asterisk /var/log/asterisk
+
 ADD run-httpd.sh /run-httpd.sh
 RUN chmod -v +x /run-httpd.sh
 

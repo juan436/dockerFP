@@ -40,6 +40,9 @@ RUN \
   echo "/usr/lib64" >> /etc/ld.so.conf.d/x86_64-linux-gnu.conf && \
   ldconfig
 
+# Start Asterisk before installing FreePBX
+RUN /usr/sbin/asterisk -vvvvgc
+
 # create user asterisk and permissions
 RUN \
   groupadd asterisk && \

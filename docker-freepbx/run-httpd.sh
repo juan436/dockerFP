@@ -4,8 +4,7 @@ WORKDIR=/usr/local/src/freepbx
 
 if [ ! -f /var/www/html/.pbx ]; then
   # start asterisk
-  cd ${WORKDIR}
-  ./start_asterisk start
+  /usr/sbin/safe_asterisk
   # wait for MariaDB
   /wait-for-mariadb.sh
   # install freepbx
@@ -35,8 +34,7 @@ if [ ! -f /var/www/html/.pbx ]; then
   /usr/sbin/apachectl -DFOREGROUND
 else
   # start asterisk
-  cd ${WORKDIR}
-  ./start_asterisk start
+  /usr/sbin/safe_asterisk
   # fix simlinks
   ln -sf /var/lib/asterisk/etc/freepbx.conf /etc/freepbx.conf
   ln -sf /var/lib/asterisk/bin/fwconsole /usr/sbin/fwconsole

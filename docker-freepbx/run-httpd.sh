@@ -16,6 +16,7 @@ if [ ! -f /var/www/html/.pbx ]; then
   --astagidir=${ASTAGIDIR} --astspooldir=${ASTSPOOLDIR} --astrundir=${ASTRUNDIR} --astlogdir=${ASTLOGDIR} \
   --ampbin=${AMPBIN} --ampsbin=${AMPSBIN} --ampcgibin=${AMPCGIBIN}  --ampplayback=${AMPPLAYBACK} -n
   # configure freepbx
+  export PATH=$PATH:/usr/sbin
   fwconsole ma installall
   fwconsole reload
   fwconsole restart
@@ -33,6 +34,7 @@ else
   ln -s /var/lib/asterisk/etc/freepbx.conf /etc/freepbx.conf
   ln -s /var/lib/asterisk/bin/fwconsole /usr/sbin/fwconsole
   # configure freepbx
+  export PATH=$PATH:/usr/sbin
   fwconsole reload
   fwconsole restart
   # start httpd service

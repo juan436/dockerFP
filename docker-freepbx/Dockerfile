@@ -83,6 +83,8 @@ RUN \
   rm /usr/local/src/freepbx-17.0-latest-EDGE.tgz && \
   apt-get clean
 
+# Set permissions for FreePBX
+RUN chown -R asterisk:asterisk /var/www/html
 # Copy and set permissions for wait-for-mariadb.sh
 COPY wait-for-mariadb.sh /wait-for-mariadb.sh
 RUN chmod +x /wait-for-mariadb.sh

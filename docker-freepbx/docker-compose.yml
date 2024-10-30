@@ -3,7 +3,7 @@ version: '2'
 services:
   server:
     container_name: freepbx_server
-    image: aguila435/freepbx:latest
+    image: freepbx-jcv
     ports:
       - 443:443
       - 4445:4445

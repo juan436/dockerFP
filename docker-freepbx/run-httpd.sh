@@ -8,6 +8,7 @@ if [ ! -f /var/www/html/.pbx ]; then
   # wait for MariaDB
   /wait-for-mariadb.sh
   # install freepbx
+  cd ${WORKDIR}
   sleep 5
   ./install --dbengine=${DBENGINE} --dbname=${DBNAME} --dbhost=${DBHOST} --dbport=${DBPORT} \
   --cdrdbname=${CDRDBNAME} --dbuser=${DBUSER} --dbpass=${DBPASS} --user=${USER}  --group=${GROUP} \

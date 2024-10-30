@@ -74,7 +74,7 @@ COPY ./default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
 RUN \
     a2ensite default-ssl && \
     a2enmod ssl
-
+    
 # install freepbx
 RUN \
   wget -O /usr/local/src/freepbx-17.0-latest-EDGE.tgz http://mirror.freepbx.org/modules/packages/freepbx/freepbx-17.0-latest-EDGE.tgz && \

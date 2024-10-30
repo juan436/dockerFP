@@ -15,13 +15,20 @@ if [ ! -f /var/www/html/.pbx ]; then
   --webroot=${WEBROOT} --astetcdir=${ASTETCDIR} --astmoddir=${ASTMODDIR} --astvarlibdir=${ASTVARLIBDIR} \
   --astagidir=${ASTAGIDIR} --astspooldir=${ASTSPOOLDIR} --astrundir=${ASTRUNDIR} --astlogdir=${ASTLOGDIR} \
   --ampbin=${AMPBIN} --ampsbin=${AMPSBIN} --ampcgibin=${AMPCGIBIN}  --ampplayback=${AMPPLAYBACK} -n
+
+  # Verify fwconsole installation
+  if [ ! -f /var/lib/asterisk/bin/fwconsole ]; then
+      echo "Error: fwconsole no se encuentra después de la instalación."
+      exit 1
+  fi
+
   # configure freepbx
   export PATH=$PATH:/usr/sbin:/var/lib/asterisk/bin
   fwconsole ma installall
   fwconsole reload
   fwconsole restart
   touch /var/www/html/.pbx
-  mkdir /var/lib/asterisk/etc
+  mkdir -p /var/lib/asterisk/etc
   cp /etc/freepbx.conf /var/lib/asterisk/etc/
   chown -R asterisk:asterisk /var/lib/asterisk/etc
   # start httpd service

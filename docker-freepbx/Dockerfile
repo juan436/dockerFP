@@ -79,6 +79,8 @@ RUN \
 RUN \
   wget -O /usr/local/src/freepbx-17.0-latest-EDGE.tgz http://mirror.freepbx.org/modules/packages/freepbx/freepbx-17.0-latest-EDGE.tgz && \
   tar zxvf /usr/local/src/freepbx-17.0-latest-EDGE.tgz -C /usr/local/src && \
+  cd /usr/local/src/freepbx && \
+  ./install -n && \
   rm /usr/src/asterisk-20-current.tar.gz && \
   rm /usr/local/src/freepbx-17.0-latest-EDGE.tgz && \
   apt-get clean

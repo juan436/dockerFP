@@ -1,5 +1,5 @@
 FROM debian:12
-LABEL maintainer="juacvillefer <example@example.com>"
+LABEL maintainer="juacvillefer <juancvillefer@gmail.com>"
 
 RUN \
   apt-get update && \

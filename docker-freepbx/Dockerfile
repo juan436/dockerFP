@@ -57,6 +57,11 @@ RUN \
   echo "/usr/lib64" >> /etc/ld.so.conf.d/x86_64-linux-gnu.conf && \
   ldconfig
 
+  # Configure asterisk.conf to use asterisk user
+RUN \
+sed -i 's|^;runuser =.*|runuser = asterisk|' /etc/asterisk/asterisk.conf && \
+sed -i 's|^;rungroup =.*|rungroup = asterisk|' /etc/asterisk/asterisk.conf
+
 # configure apache server
 RUN \
   sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php/8.2/apache2/php.ini && \
@@ -76,6 +81,8 @@ RUN \
     a2ensite default-ssl && \
     a2enmod ssl
 
+# Start Asterisk before installing FreePBX
+RUN /usr/sbin/safe_asterisk && sleep 5
 # Set permissions for FreePBX
 RUN chown -R asterisk:asterisk /var/www/html
 

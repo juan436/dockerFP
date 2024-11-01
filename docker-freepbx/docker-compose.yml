@@ -4,6 +4,7 @@ services:
   server:
     container_name: freepbx_server
     image: freepbx-jcv
+    privileged: true
     ports:
       - 443:443
       - 4445:4445

@@ -11,6 +11,8 @@ if [ ! -f /var/www/html/.pbx ]; then
   wget -O /usr/local/src/freepbx-17.0-latest-EDGE.tgz http://mirror.freepbx.org/modules/packages/freepbx/freepbx-17.0-latest-EDGE.tgz
   tar zxvf /usr/local/src/freepbx-17.0-latest-EDGE.tgz -C /usr/local/src
   cd ${WORKDIR}
+  
+  # Install FreePBX
   ./install --dbengine=${DBENGINE} --dbname=${DBNAME} --dbhost=${DBHOST} --dbport=${DBPORT} \
   --cdrdbname=${CDRDBNAME} --dbuser=${DBUSER} --dbpass=${DBPASS} --user=${USER}  --group=${GROUP} \
   --webroot=${WEBROOT} --astetcdir=${ASTETCDIR} --astmoddir=${ASTMODDIR} --astvarlibdir=${ASTVARLIBDIR} \

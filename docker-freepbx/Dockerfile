@@ -78,9 +78,20 @@ RUN \
 
 # Set permissions for FreePBX
 RUN chown -R asterisk:asterisk /var/www/html
+
+# Install FreePBX
+RUN \
+  wget -O /usr/src/freepbx-17.0-latest-EDGE.tgz http://mirror.freepbx.org/modules/packages/freepbx/freepbx-17.0-latest-EDGE.tgz && \
+  tar zxvf /usr/src/freepbx-17.0-latest-EDGE.tgz -C /usr/src && \
+  cd /usr/src/freepbx && \
+  ./install -n
+
 # Copy and set permissions for wait-for-mariadb.sh
 COPY wait-for-mariadb.sh /wait-for-mariadb.sh
 RUN chmod +x /wait-for-mariadb.sh
+
+# Ensure fwconsole is in the PATH
+ENV PATH="/var/lib/asterisk/bin:${PATH}"
 
 ADD run-httpd.sh /run-httpd.sh
 RUN chmod -v +x /run-httpd.sh

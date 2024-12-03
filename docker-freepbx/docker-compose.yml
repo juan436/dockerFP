@@ -2,8 +2,8 @@ version: '2'
 
 services:
   server:
-    container_name: freepbx_server
-    image: freepbx-jcv
+    container_name: freepbx_server_jv
+    image: docker.io/ovox/freepbx:17.0
     privileged: true
     ports:
       - 443:443
@@ -52,7 +52,7 @@ services:
         ipv4_address: 172.22.0.50 
 
   mariadb:
-    container_name: freepbx_mariadb
+    container_name: freepbx_mariadb_jv
     image: mariadb:latest
     restart: always
     volumes:
